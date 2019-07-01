@@ -1,0 +1,4 @@
+github.com/beevik/etree v1.1.0 h1:T0xke/WvNtMoCqgzPhkX2r4rjY3GDZFi+FjpRZY2Jbs=
+github.com/beevik/etree v1.1.0/go.mod h1:r8Aw8JqVegEf0w2fDnATrX9VpkMcyFeM0FhwO62wh+A=
+github.com/mkusaka/sitemapparser v0.0.0-20190701142758-7bf18c91ff6e h1:1dS0bm7bxm38hDRFddg4guwTm7olSZg1pIw0KaPqGEM=
+github.com/mkusaka/sitemapparser v0.0.0-20190701142758-7bf18c91ff6e/go.mod h1:XEIxda1eac0u/kBXGmSIHdd8pTbTwCMHp8lnt2pAwKk=
