@@ -2,3 +2,7 @@ github.com/beevik/etree v1.1.0 h1:T0xke/WvNtMoCqgzPhkX2r4rjY3GDZFi+FjpRZY2Jbs=
 github.com/beevik/etree v1.1.0/go.mod h1:r8Aw8JqVegEf0w2fDnATrX9VpkMcyFeM0FhwO62wh+A=
 github.com/mkusaka/sitemapparser v0.0.0-20190701142758-7bf18c91ff6e h1:1dS0bm7bxm38hDRFddg4guwTm7olSZg1pIw0KaPqGEM=
 github.com/mkusaka/sitemapparser v0.0.0-20190701142758-7bf18c91ff6e/go.mod h1:XEIxda1eac0u/kBXGmSIHdd8pTbTwCMHp8lnt2pAwKk=
+github.com/motemen/go-loghttp v0.0.0-20170804080138-974ac5ceac27 h1:uAI3rnOT1OSSY4PUtI/M1orb3q0ewkovwd3wr8xSno4=
+github.com/motemen/go-loghttp v0.0.0-20170804080138-974ac5ceac27/go.mod h1:6eu9CfGt5kfrMVgeu9MfB9PRUnpc47I+udLswiTszI8=
+github.com/motemen/go-nuts v0.0.0-20180315145558-42c35bdb11c2 h1:gfo7RLzXaBdNShd7F5N3K1oM779cD777np9ljUgvf9s=
+github.com/motemen/go-nuts v0.0.0-20180315145558-42c35bdb11c2/go.mod h1:vfh/NPxHgDwggXit20W1llPsXcz39xJ7I8vo7kVrOCk=
