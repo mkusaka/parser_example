@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -55,7 +54,6 @@ func main() {
 
 		status := ""
 		if err != nil {
-			fmt.Println(err)
 			status = err.Error()
 		} else {
 			status = strconv.Itoa(resp.StatusCode)
