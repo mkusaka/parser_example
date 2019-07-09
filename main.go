@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"fmt"
 
 	"github.com/mkusaka/sitemapparser"
 	_ "github.com/motemen/go-loghttp/global"
@@ -46,9 +47,9 @@ func main() {
 	statusResutls := []string{"url, statusCode"}
 
 	for i, url := range targetURLs {
-		if i >= 2 {
-			break
-		}
+		//		if i >= 2 {
+		//			break
+		//		}
 		targetURL := strings.Replace(url, replaceFromString, replaceToString, 1)
 		resp, err := http.Get(targetURL)
 
@@ -59,8 +60,8 @@ func main() {
 			status = strconv.Itoa(resp.StatusCode)
 			resp.Body.Close()
 		}
-
 		statusResutls = append(statusResutls, targetURL+","+status)
+		fmt.Println("current: " + strconv.Itoa(i) + "/" + strconv.Itoa(len(targetURLs)))
 	}
 
 	file.Write(([]byte)(strings.Join(statusResutls, "\n")))
