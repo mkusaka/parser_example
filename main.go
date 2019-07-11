@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
-	"fmt"
+	"sync"
 
 	"github.com/mkusaka/sitemapparser"
 	_ "github.com/motemen/go-loghttp/global"
@@ -44,25 +45,33 @@ func main() {
 		log.Fatal(err)
 	}
 
-	statusResutls := []string{"url, statusCode"}
+	statusResults := []string{"url, statusCode"}
+
+	// parallel access count
+	maxConnection := make(chan bool, 10)
+	wg := &sync.WaitGroup{}
 
 	for i, url := range targetURLs {
-		//		if i >= 2 {
-		//			break
-		//		}
-		targetURL := strings.Replace(url, replaceFromString, replaceToString, 1)
-		resp, err := http.Get(targetURL)
+		wg.Add(1)
+		maxConnection <- true
 
-		status := ""
-		if err != nil {
-			status = err.Error()
-		} else {
-			status = strconv.Itoa(resp.StatusCode)
-			resp.Body.Close()
-		}
-		statusResutls = append(statusResutls, targetURL+","+status)
-		fmt.Println("current: " + strconv.Itoa(i) + "/" + strconv.Itoa(len(targetURLs)))
+		go func() {
+			defer wg.Done()
+
+			targetURL := strings.Replace(url, replaceFromString, replaceToString, 1)
+			resp, err := http.Get(targetURL)
+
+			status := ""
+			if err != nil {
+				status = err.Error()
+			} else {
+				status = strconv.Itoa(resp.StatusCode)
+				resp.Body.Close()
+			}
+			statusResults = append(statusResults, targetURL+","+status)
+			fmt.Println("current: " + strconv.Itoa(i) + "/" + strconv.Itoa(len(targetURLs)))
+		}()
 	}
 
-	file.Write(([]byte)(strings.Join(statusResutls, "\n")))
+	file.Write(([]byte)(strings.Join(statusResults, "\n")))
 }
