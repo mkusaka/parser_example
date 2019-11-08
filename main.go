@@ -13,7 +13,7 @@ import (
 
 func main() {
 	if len(os.Args) <= 1 {
-		log.Fatal(`argument requierd
+		log.Fatal(`argument required
 1st argument: index sitemap url
 2nd argument: replace from collected site url string
 3nd argument: replace to collected site url string`)
@@ -43,7 +43,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	statusResutls := []string{"url, statusCode"}
+	statusResults := []string{"url, statusCode"}
 
 	for i, url := range targetURLs {
 		if i >= 2 {
@@ -60,8 +60,8 @@ func main() {
 			resp.Body.Close()
 		}
 
-		statusResutls = append(statusResutls, targetURL+","+status)
+		statusResults = append(statusResults, targetURL+","+status)
 	}
 
-	file.Write(([]byte)(strings.Join(statusResutls, "\n")))
+	file.Write(([]byte)(strings.Join(statusResults, "\n")))
 }
