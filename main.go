@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -34,6 +35,7 @@ func main() {
 	file, err := os.Create("output.csv")
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 	defer file.Close()
 
@@ -41,27 +43,36 @@ func main() {
 
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 
-	statusResults := []string{"url, statusCode"}
+	type Resp struct {
+		status string
+		url    string
+	}
+	// statusResults := []string{"url, statusCode"}
 
-	for i, url := range targetURLs {
-		if i >= 2 {
-			break
-		}
-		targetURL := strings.Replace(url, replaceFromString, replaceToString, 1)
-		resp, err := http.Get(targetURL)
+	c := make(chan Resp, 10)
+	for _, url := range targetURLs {
+		go func() {
+			targetURL := strings.Replace(url, replaceFromString, replaceToString, 1)
+			resp, err := http.Get(targetURL)
 
-		status := ""
-		if err != nil {
-			status = err.Error()
-		} else {
-			status = strconv.Itoa(resp.StatusCode)
-			resp.Body.Close()
-		}
+			status := ""
+			if err != nil {
+				status = err.Error()
+			} else {
+				status = strconv.Itoa(resp.StatusCode)
+				defer resp.Body.Close()
+				c <- Resp{status, targetURL}
+			}
+		}()
 
-		statusResults = append(statusResults, targetURL+","+status)
+		// statusResults = append(statusResults, statusResults+","+status)
 	}
 
-	file.Write(([]byte)(strings.Join(statusResults, "\n")))
+	for v := range c {
+		fmt.Printf("status: %v, url: 5v", v.status, v.url)
+	}
+	// file.Write(([]byte)(strings.Join(statusResults, "\n")))
 }
